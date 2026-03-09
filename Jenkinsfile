@@ -3,6 +3,12 @@ pipeline {
 
     stages {
 
+        stage('Clone Repository') {
+            steps {
+                git 'https://github.com/Bl4ckB3rry07/mywebapp.git'
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t blackberry07/mywebapp:v1 .'
@@ -15,5 +21,10 @@ pipeline {
             }
         }
 
+        stage('Run Container') {
+            steps {
+                sh 'docker run -d -p 3000:3000 blackberry07/mywebapp:v1'
+            }
+        }
     }
 }
